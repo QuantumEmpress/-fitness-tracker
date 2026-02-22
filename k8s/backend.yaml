@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fitness-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fitness-backend
+  template:
+    metadata:
+      labels:
+        app: fitness-backend
+    spec:
+      containers:
+        - name: fitness-backend
+          image: quantumempress/fitness-tracker-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATA_MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: fitness-tracker-secrets
+                  key: SPRING_DATA_MONGODB_URI
+            - name: APP_JWTSECRET
+              valueFrom:
+                secretKeyRef:
+                  name: fitness-tracker-secrets
+                  key: APP_JWT_SECRET
+            - name: CLOUDINARY_CLOUD_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: fitness-tracker-secrets
+                  key: CLOUDINARY_CLOUD_NAME
+            - name: CLOUDINARY_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: fitness-tracker-secrets
+                  key: CLOUDINARY_API_KEY
+            - name: CLOUDINARY_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: fitness-tracker-secrets
+                  key: CLOUDINARY_API_SECRET
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fitness-backend-service
+spec:
+  selector:
+    app: fitness-backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
