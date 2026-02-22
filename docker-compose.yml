@@ -1,0 +1,23 @@
+services:
+  backend:
+    image: quantumempress/fitness-tracker-backend:v1.0
+    container_name: fitness-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://okaforomalicha98:fimdqWWWIKjX01Gh@fitnesstrackercluster.89dxetw.mongodb.net/fitness_tracker_db?retryWrites=true&w=majority
+      - APP_JWT_SECRET=FitnessTrackerSecretKeyForJwtTokenGenerationShouldBeLongEnough
+      - APP_JWT_EXPIRATION_MS=86400000
+      - CLOUDINARY_CLOUD_NAME=didjosym5
+      - CLOUDINARY_API_KEY=266322942279777
+      - CLOUDINARY_API_SECRET=uCi6K0gqnFq91GWd6kaqdahwOeQ
+    pull_policy: never
+
+  frontend:
+    image: quantumempress/fitness-tracker-frontend:v1.0
+    container_name: fitness-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    pull_policy: never
