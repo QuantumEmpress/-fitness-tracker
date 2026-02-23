@@ -1,0 +1,101 @@
+---
+- name: Deploy FitTrack Pro to EC2
+  hosts: ec2
+  become: yes
+
+  vars:
+    docker_hub_user: "quantumempress"
+    docker_hub_token: "{{ lookup('env', 'DOCKER_HUB_TOKEN') }}"
+    backend_image: "quantumempress/fitness-tracker-backend:v1.0"
+    frontend_image: "quantumempress/fitness-tracker-frontend:v1.0"
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install required packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu jammy stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+
+    - name: Start and enable Docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add ubuntu user to docker group
+      user:
+        name: ubuntu
+        groups: docker
+        append: yes
+
+    - name: Install Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Log in to Docker Hub
+      command: docker login -u {{ docker_hub_user }} -p {{ docker_hub_token }}
+      no_log: true
+
+    - name: Pull backend image
+      command: docker pull {{ backend_image }}
+
+    - name: Pull frontend image
+      command: docker pull {{ frontend_image }}
+
+    - name: Stop existing backend container
+      command: docker rm -f fitness-backend
+      ignore_errors: yes
+
+    - name: Stop existing frontend container
+      command: docker rm -f fitness-frontend
+      ignore_errors: yes
+
+    - name: Run backend container
+      command: >
+        docker run -d
+        --name fitness-backend
+        -p 8080:8080
+        --restart always
+        {{ backend_image }}
+
+    - name: Run frontend container
+      command: >
+        docker run -d
+        --name fitness-frontend
+        -p 80:80
+        --restart always
+        {{ frontend_image }}
+
+    - name: Verify containers are running
+      command: docker ps
+      register: docker_output
+
+    - name: Show running containers
+      debug:
+        msg: "{{ docker_output.stdout }}"
