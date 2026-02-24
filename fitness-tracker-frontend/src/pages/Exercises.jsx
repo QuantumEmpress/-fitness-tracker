@@ -28,7 +28,7 @@ const Exercises = () => {
     // Helper function to extract YouTube video ID
     const getYouTubeVideoId = (url) => {
         if (!url) return null;
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
         const match = url.match(regExp);
         return (match && match[2].length === 11) ? match[2] : null;
     };
@@ -293,7 +293,7 @@ const Exercises = () => {
                 exercises.length === 0 && (
                     <div className="glass-card text-center py-16">
                         <img
-                            src="/src/assets/images/2.png"
+                            src="/images/2.png"
                             alt="No exercises yet"
                             className="w-80 mx-auto mb-6 drop-shadow-2xl animate-float"
                         />

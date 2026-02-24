@@ -36,7 +36,7 @@ const Login = () => {
           <div className="relative z-10 text-center">
             {/* Shigureni Illustration */}
             <img
-              src="/src/assets/images/25.png"
+              src="/images/25.png"
               alt="Welcome"
               className="w-full max-w-md drop-shadow-2xl animate-float object-contain"
             />

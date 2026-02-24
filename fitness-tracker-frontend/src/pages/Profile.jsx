@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import userService from '../services/userService';
-import { AuthContext } from '../contexts/AuthContext';
 import { User, Camera, Lock, Key } from 'lucide-react';
 import Badges from '../components/Badges';
 import { toast } from 'react-hot-toast';
 import AnimationWrapper, { StaggerContainer, StaggerItem } from '../components/AnimationWrapper';
 
 const Profile = () => {
-    const { user: authUser } = useContext(AuthContext);
+    // const { user: authUser } = useContext(AuthContext);
     const [profile, setProfile] = useState({
         username: '',
         email: '',
@@ -77,6 +76,7 @@ const Profile = () => {
             await userService.updateProfile(updateData);
             toast.success('Profile updated successfully!', { id: loadingToast });
         } catch (error) {
+            console.error("Failed to update profile", error);
             toast.error('Failed to update profile.', { id: loadingToast });
         }
     };
@@ -117,7 +117,7 @@ const Profile = () => {
             {/* Decorative Header */}
             <div className="glass-card p-8 text-center relative overflow-hidden">
                 <img
-                    src="/src/assets/images/8.png"
+                    src="/images/8.png"
                     alt="Profile"
                     className="w-64 mx-auto mb-4 drop-shadow-2xl animate-float"
                 />

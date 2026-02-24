@@ -153,7 +153,7 @@ const Dashboard = () => {
                     ) : (
                         <div className="h-full flex flex-col items-center justify-center text-gray-400 py-8">
                             <img
-                                src="/src/assets/images/1.png"
+                                src="/images/1.png"
                                 alt="Start your journey"
                                 className="w-64 mb-6 drop-shadow-xl animate-float"
                             />

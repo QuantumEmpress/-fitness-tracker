@@ -43,7 +43,7 @@ const Signup = () => {
                     <div className="relative z-10 text-center">
                         {/* Shigureni Illustration */}
                         <img
-                            src="/src/assets/images/119.png"
+                            src="/images/119.png"
                             alt="Join Us"
                             className="w-full max-w-md drop-shadow-2xl animate-float object-contain"
                         />

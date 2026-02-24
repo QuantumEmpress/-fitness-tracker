@@ -197,7 +197,7 @@ const Workouts = () => {
                 {workouts.length === 0 && (
                     <div className="glass-card text-center py-16">
                         <img
-                            src="/src/assets/images/5.png"
+                            src="/images/5.png"
                             alt="Start logging workouts"
                             className="w-80 mx-auto mb-6 drop-shadow-2xl animate-float"
                         />

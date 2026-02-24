@@ -182,7 +182,7 @@ const Goals = () => {
             {goals.length === 0 && (
                 <div className="glass-card text-center py-16">
                     <img
-                        src="/src/assets/images/3.png"
+                        src="/images/3.png"
                         alt="Set your goals"
                         className="w-80 mx-auto mb-6 drop-shadow-2xl animate-float"
                     />
