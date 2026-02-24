@@ -58,13 +58,17 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes') {
+        stage('Deploy with Ansible to EC2') {
             steps {
-                bat 'kubectl apply -f k8s\\secrets.yaml --validate=false'
-                bat 'kubectl apply -f k8s\\backend.yaml --validate=false'
-                bat 'kubectl apply -f k8s\\frontend.yaml --validate=false'
-                bat 'kubectl rollout restart deployment/fitness-backend'
-                bat 'kubectl rollout restart deployment/fitness-frontend'
+                script {
+                    withCredentials([usernamePassword(
+                        credentialsId: 'docker-hub',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_TOKEN'
+                    )]) {
+                        bat "wsl bash -c \"cd /mnt/c/Users/HP/Documents/final\\ year\\ project/ansible && DOCKER_HUB_TOKEN=${DOCKER_TOKEN} ansible-playbook -i inventory.ini playbook.yml\""
+                    }
+                }
             }
         }
     }
