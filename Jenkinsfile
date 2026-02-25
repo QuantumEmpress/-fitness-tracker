@@ -49,9 +49,9 @@ pipeline {
                         passwordVariable: 'PASSWORD'
                     )]) {
                         bat "docker login -u %USERNAME% -p %PASSWORD%"
-                        bat "docker build -t ${BACKEND_IMAGE}:v1.0 -f fitness-tracker-backend/Dockerfile fitness-tracker-backend"
+                        bat "docker build --no-cache -t ${BACKEND_IMAGE}:v1.0 -f fitness-tracker-backend/Dockerfile fitness-tracker-backend"
                         bat "docker push ${BACKEND_IMAGE}:v1.0"
-                        bat "docker build -t ${FRONTEND_IMAGE}:v1.0 -f fitness-tracker-frontend/Dockerfile fitness-tracker-frontend"
+                        bat "docker build --no-cache -t ${FRONTEND_IMAGE}:v1.0 -f fitness-tracker-frontend/Dockerfile fitness-tracker-frontend"
                         bat "docker push ${FRONTEND_IMAGE}:v1.0"
                     }
                 }

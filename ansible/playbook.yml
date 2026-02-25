@@ -2,6 +2,7 @@
 - name: Deploy FitTrack Pro to EC2
   hosts: ec2
   become: yes
+  gather_facts: no
 
   vars:
     docker_hub_user: "quantumempress"
