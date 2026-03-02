@@ -1,7 +1,6 @@
 ---
 - name: Deploy FitTrack Pro to EC2
   hosts: ec2
-  become: yes
   gather_facts: no
 
   vars:
@@ -12,11 +11,13 @@
 
   tasks:
     - name: Update apt cache
+      become: yes
       apt:
         update_cache: yes
         cache_valid_time: 3600
 
     - name: Install required packages
+      become: yes
       apt:
         name:
           - apt-transport-https
@@ -26,38 +27,47 @@
         state: present
 
     - name: Add Docker GPG key
+      become: yes
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
 
     - name: Add Docker repository
+      become: yes
       apt_repository:
         repo: deb https://download.docker.com/linux/ubuntu jammy stable
         state: present
 
     - name: Install Docker
+      become: yes
       apt:
         name: docker-ce
         state: present
         update_cache: yes
 
     - name: Start and enable Docker
+      become: yes
       service:
         name: docker
         state: started
         enabled: yes
 
     - name: Add ubuntu user to docker group
+      become: yes
       user:
         name: ubuntu
         groups: docker
         append: yes
 
     - name: Install Docker Compose
+      become: yes
       get_url:
         url: https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-linux-x86_64
         dest: /usr/local/bin/docker-compose
         mode: '0755'
+
+    - name: Reset SSH connection to pick up docker group
+      meta: reset_connection
 
     - name: Log in to Docker Hub
       command: docker login -u {{ docker_hub_user }} -p {{ docker_hub_token }}
