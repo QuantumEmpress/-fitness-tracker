@@ -38,13 +38,16 @@ C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\c
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\user\dto\PasswordChangeRequest.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\config\SwaggerConfig.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\auth\dto\LoginRequest.java
+C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\goal\service\GoalDeadlineScheduler.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\user\service\UserService.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\dashboard\controller\DashboardController.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\gamification\model\UserBadge.java
+C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\config\NotificationService.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\auth\model\Role.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\workout\model\Workout.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\workout\controller\WorkoutController.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\dashboard\controller\LeaderboardController.java
+C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\config\WebSocketConfig.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\config\CloudinaryConfig.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\dashboard\service\DashboardService.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\auth\security\AuthEntryPointJwt.java

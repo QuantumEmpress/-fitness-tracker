@@ -2,6 +2,7 @@ package com.fitnesstracker.workout.service;
 
 import com.fitnesstracker.auth.model.User;
 import com.fitnesstracker.auth.repository.UserRepository;
+import com.fitnesstracker.config.NotificationService;
 import com.fitnesstracker.workout.model.Workout;
 import com.fitnesstracker.workout.repository.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +20,20 @@ public class WorkoutService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<Workout> getUserWorkouts(String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
-        return workoutRepository.findByUserId(user.getId());
-    }
-
     @Autowired
     private com.fitnesstracker.exercise.repository.ExerciseRepository exerciseRepository;
 
     @Autowired
     private com.fitnesstracker.gamification.service.BadgeService badgeService;
+
+    @Autowired
+    private NotificationService notificationService;
+
+    public List<Workout> getUserWorkouts(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+        return workoutRepository.findByUserId(user.getId());
+    }
 
     public Workout logWorkout(String username, com.fitnesstracker.workout.dto.WorkoutDto workoutDto) {
         User user = userRepository.findByUsername(username)
@@ -57,6 +61,9 @@ public class WorkoutService {
         // Check for badges
         badgeService.checkAndAwardBadges(user.getId(), savedWorkout);
 
+        // Notify dashboard to refresh in real-time
+        notificationService.broadcastDashboardUpdate(user.getId());
+
         return savedWorkout;
     }
 
@@ -73,5 +80,8 @@ public class WorkoutService {
         }
 
         workoutRepository.deleteById(id);
+
+        // Notify dashboard to refresh in real-time
+        notificationService.broadcastDashboardUpdate(user.getId());
     }
 }

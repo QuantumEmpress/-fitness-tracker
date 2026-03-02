@@ -2,6 +2,7 @@ package com.fitnesstracker.goal.service;
 
 import com.fitnesstracker.auth.model.User;
 import com.fitnesstracker.auth.repository.UserRepository;
+import com.fitnesstracker.config.NotificationService;
 import com.fitnesstracker.goal.model.Goal;
 import com.fitnesstracker.goal.repository.GoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class GoalService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private NotificationService notificationService;
 
     public java.util.List<Goal> getAllGoals(String username) {
         User user = userRepository.findByUsername(username)
@@ -36,7 +40,18 @@ public class GoalService {
         goal.setDescription(goalDetails.getDescription());
         goal.setTargetDate(goalDetails.getTargetDate());
         goal.setAchieved(goalDetails.isAchieved());
-        return goalRepository.save(goal);
+
+        Goal saved = goalRepository.save(goal);
+
+        // Notify user when goal is marked as achieved
+        if (goalDetails.isAchieved() && !goal.isNotified()) {
+            notificationService.notifyUser(
+                    goal.getUserId(),
+                    "🎯 Goal Achieved!",
+                    "Congratulations! You completed: \"" + goal.getDescription() + "\"");
+        }
+
+        return saved;
     }
 
     public void deleteGoal(String id) {

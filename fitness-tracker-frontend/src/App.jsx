@@ -17,10 +17,11 @@ import ProgressPhotos from './pages/ProgressPhotos';
 import Calculators from './pages/Calculators';
 import AuditLogs from './pages/AuditLogs';
 import { Toaster } from 'react-hot-toast';
+import { WebSocketProvider } from './contexts/WebSocketContext';
 
 function App() {
   return (
-    <>
+    <WebSocketProvider>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
@@ -72,7 +73,7 @@ function App() {
           },
         }}
       />
-    </>
+    </WebSocketProvider>
   );
 }
 

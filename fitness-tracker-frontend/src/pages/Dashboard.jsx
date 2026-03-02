@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import dashboardService from '../services/dashboardService';
+import { useWebSocket } from '../contexts/WebSocketContext';
 import { Activity, TrendingUp, Calendar } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import DashboardSkeleton from '../components/DashboardSkeleton';
@@ -8,20 +9,29 @@ const Dashboard = () => {
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchStats = async () => {
-            try {
-                const response = await dashboardService.getDashboardStats();
-                setStats(response.data);
-            } catch (error) {
-                console.error("Failed to fetch dashboard stats", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const { lastDashboardEvent } = useWebSocket();
 
+    const fetchStats = async () => {
+        try {
+            const response = await dashboardService.getDashboardStats();
+            setStats(response.data);
+        } catch (error) {
+            console.error("Failed to fetch dashboard stats", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
         fetchStats();
     }, []);
+
+    // Auto-refresh when a WebSocket dashboard event is received
+    useEffect(() => {
+        if (lastDashboardEvent) {
+            fetchStats();
+        }
+    }, [lastDashboardEvent]);
 
     if (loading) return <div className="p-6"><DashboardSkeleton /></div>;
 

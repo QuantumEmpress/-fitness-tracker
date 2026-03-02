@@ -1,5 +1,6 @@
 package com.fitnesstracker.exercise.service;
 
+import com.fitnesstracker.config.NotificationService;
 import com.fitnesstracker.exercise.model.Exercise;
 import com.fitnesstracker.exercise.repository.ExerciseRepository;
 import com.fitnesstracker.service.CloudinaryService;
@@ -19,6 +20,9 @@ public class ExerciseService {
     @Autowired
     private CloudinaryService cloudinaryService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     public List<Exercise> getAllExercises() {
         return exerciseRepository.findAll();
     }
@@ -32,7 +36,12 @@ public class ExerciseService {
             String videoUrl = cloudinaryService.uploadVideo(videoFile);
             exercise.setVideoUrl(videoUrl);
         }
-        return exerciseRepository.save(exercise);
+        Exercise saved = exerciseRepository.save(exercise);
+
+        // Broadcast to all connected users
+        notificationService.broadcastExerciseUpdate("CREATED", saved);
+
+        return saved;
     }
 
     public Exercise updateExercise(String id, Exercise exerciseDetails, MultipartFile videoFile) throws IOException {
@@ -47,13 +56,21 @@ public class ExerciseService {
             String videoUrl = cloudinaryService.uploadVideo(videoFile);
             exercise.setVideoUrl(videoUrl);
         } else if (exerciseDetails.getVideoUrl() != null) {
-             exercise.setVideoUrl(exerciseDetails.getVideoUrl());
+            exercise.setVideoUrl(exerciseDetails.getVideoUrl());
         }
 
-        return exerciseRepository.save(exercise);
+        Exercise saved = exerciseRepository.save(exercise);
+
+        // Broadcast to all connected users
+        notificationService.broadcastExerciseUpdate("UPDATED", saved);
+
+        return saved;
     }
 
     public void deleteExercise(String id) {
         exerciseRepository.deleteById(id);
+
+        // Broadcast deletion to all connected users
+        notificationService.broadcastExerciseUpdate("DELETED", id);
     }
 }

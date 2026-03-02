@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import exerciseService from '../services/exerciseService';
 import { AuthContext } from '../contexts/AuthContext';
+import { useWebSocket } from '../contexts/WebSocketContext';
 import { Plus, Play, Trash2, Edit2 } from 'lucide-react';
 import CardSkeleton from '../components/CardSkeleton';
 import { toast } from 'react-hot-toast';
@@ -34,9 +35,18 @@ const Exercises = () => {
     };
     const [selectedVideo, setSelectedVideo] = useState(null);
 
+    const { lastExerciseEvent } = useWebSocket();
+
     useEffect(() => {
         fetchExercises();
     }, []);
+
+    // Auto-refresh when a WebSocket exercise event is received
+    useEffect(() => {
+        if (lastExerciseEvent) {
+            fetchExercises();
+        }
+    }, [lastExerciseEvent]);
 
     const fetchExercises = async () => {
         try {

@@ -24,4 +24,6 @@ public class Goal {
     private java.time.LocalDate targetDate;
 
     private boolean achieved;
+
+    private boolean notified;
 }
