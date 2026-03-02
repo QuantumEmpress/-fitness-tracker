@@ -11,4 +11,6 @@ public interface AuditLogRepository extends MongoRepository<AuditLog, String> {
     List<AuditLog> findByAdminIdOrderByTimestampDesc(String adminId);
 
     List<AuditLog> findByTargetUserIdOrderByTimestampDesc(String targetUserId);
+
+    boolean existsByTargetUsernameAndAction(String targetUsername, String action);
 }

@@ -5,7 +5,7 @@ import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './routes/AdminRoute';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import SEO from './components/SEO';
+import Landing from './pages/Landing';
 import Leaderboard from './pages/Leaderboard';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
@@ -22,19 +22,19 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/login" element={<><SEO title="Login - Fitness Tracker" /><Login /></>} />
-        <Route path="/signup" element={<><SEO title="Sign Up - Fitness Tracker" /><Signup /></>} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
         <Route element={<PrivateRoute />}>
-          <Route path="/" element={<Layout><SEO title="Dashboard - Fitness Tracker" /><Dashboard /></Layout>} />
-          <Route path="/dashboard" element={<Layout><SEO title="Dashboard - Fitness Tracker" /><Dashboard /></Layout>} />
-          <Route path="/profile" element={<Layout><SEO title="My Profile - Fitness Tracker" /><Profile /></Layout>} />
-          <Route path="/exercises" element={<Layout><SEO title="Exercises - Fitness Tracker" /><Exercises /></Layout>} />
-          <Route path="/workouts" element={<Layout><SEO title="Workouts - Fitness Tracker" /><Workouts /></Layout>} />
-          <Route path="/goals" element={<Layout><SEO title="My Goals - Fitness Tracker" /><Goals /></Layout>} />
-          <Route path="/leaderboard" element={<Layout><SEO title="Leaderboard - Fitness Tracker" /><Leaderboard /></Layout>} />
-          <Route path="/progress-photos" element={<Layout><SEO title="Progress Photos - Fitness Tracker" /><ProgressPhotos /></Layout>} />
-          <Route path="/calculators" element={<Layout><SEO title="Fitness Calculators - Fitness Tracker" /><Calculators /></Layout>} />
+          <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+          <Route path="/profile" element={<Layout><Profile /></Layout>} />
+          <Route path="/exercises" element={<Layout><Exercises /></Layout>} />
+          <Route path="/workouts" element={<Layout><Workouts /></Layout>} />
+          <Route path="/goals" element={<Layout><Goals /></Layout>} />
+          <Route path="/leaderboard" element={<Layout><Leaderboard /></Layout>} />
+          <Route path="/progress-photos" element={<Layout><ProgressPhotos /></Layout>} />
+          <Route path="/calculators" element={<Layout><Calculators /></Layout>} />
 
           <Route element={<AdminRoute />}>
             <Route path="/admin" element={<Layout><AdminDashboard /></Layout>} />

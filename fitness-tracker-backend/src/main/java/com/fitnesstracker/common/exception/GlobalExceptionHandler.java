@@ -45,5 +45,21 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(org.springframework.security.authentication.DisabledException.class)
+    public ResponseEntity<ErrorResponse> handleDisabledException(
+            org.springframework.security.authentication.DisabledException ex) {
+        // DisabledException is thrown for both Banned (enabled=false) and Deleted
+        // (custom check above)
+        String message = ex.getMessage();
+        if ("User is disabled".equals(message)) {
+            message = "Your account has been banned. Please contact support.";
+        }
+
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.FORBIDDEN.value(),
+                message);
+        return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+    }
+
     // Add more specific exceptions here as needed (e.g., ResourceNotFoundException)
 }

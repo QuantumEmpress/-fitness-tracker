@@ -36,6 +36,7 @@ C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\c
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\dashboard\service\LeaderboardService.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\workout\repository\WorkoutRepository.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\user\dto\PasswordChangeRequest.java
+C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\config\SwaggerConfig.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\auth\dto\LoginRequest.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\user\service\UserService.java
 C:\Users\HP\Documents\final year project\fitness-tracker-backend\src\main\java\com\fitnesstracker\dashboard\controller\DashboardController.java

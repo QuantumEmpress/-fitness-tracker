@@ -12,9 +12,11 @@ spec:
       labels:
         app: fitness-frontend
     spec:
+      imagePullSecrets:
+        - name: dockerhub-secret
       containers:
         - name: fitness-frontend
-          image: quantumempress/fitness-tracker-frontend:latest
+          image: quantumempress/fitness-tracker-frontend:v1.0
           imagePullPolicy: Always
           ports:
             - containerPort: 80

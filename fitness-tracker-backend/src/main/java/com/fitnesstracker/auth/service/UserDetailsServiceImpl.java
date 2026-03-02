@@ -14,12 +14,25 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    com.fitnesstracker.audit.repository.AuditLogRepository auditLogRepository;
+
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+                .orElse(null);
 
+        if (user == null) {
+            // Check if user was deleted
+            if (auditLogRepository.existsByTargetUsernameAndAction(username, "DELETE_USER")) {
+                throw new org.springframework.security.authentication.DisabledException(
+                        "Your account has been deleted by an administrator.");
+            }
+            throw new UsernameNotFoundException("User Not Found with username: " + username);
+        }
+
+        System.out.println("DEBUG: Loading user: " + user.getUsername() + ", Enabled: " + user.isEnabled());
         return UserDetailsImpl.build(user);
     }
 }

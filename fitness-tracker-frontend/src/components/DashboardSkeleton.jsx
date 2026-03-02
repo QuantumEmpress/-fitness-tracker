@@ -20,15 +20,12 @@ const DashboardSkeleton = () => {
             </div>
 
             {/* Chart Skeleton */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <Skeleton width="150px" height="24px" className="mb-4" />
-                <div className="space-y-3">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                        <div key={i} className="flex items-end gap-2">
-                            <Skeleton width="60px" height={`${Math.random() * 150 + 50}px`} />
-                        </div>
-                    ))}
-                </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 h-64 flex items-end justify-around">
+                {[1, 2, 3, 4, 5].map((i) => (
+                    <div key={i} className="flex flex-col justify-end w-full px-2">
+                        <Skeleton width="100%" height={['60px', '140px', '90px', '160px', '100px'][i - 1]} />
+                    </div>
+                ))}
             </div>
         </div>
     );

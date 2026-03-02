@@ -1,5 +1,8 @@
 services:
   backend:
+    build:
+      context: ./fitness-tracker-backend
+      dockerfile: Dockerfile
     image: quantumempress/fitness-tracker-backend:v1.0
     container_name: fitness-backend
     ports:
@@ -11,13 +14,14 @@ services:
       - CLOUDINARY_CLOUD_NAME=didjosym5
       - CLOUDINARY_API_KEY=266322942279777
       - CLOUDINARY_API_SECRET=uCi6K0gqnFq91GWd6kaqdahwOeQ
-    pull_policy: never
 
   frontend:
+    build:
+      context: ./fitness-tracker-frontend
+      dockerfile: Dockerfile
     image: quantumempress/fitness-tracker-frontend:v1.0
     container_name: fitness-frontend
     ports:
       - "80:80"
     depends_on:
       - backend
-    pull_policy: never
