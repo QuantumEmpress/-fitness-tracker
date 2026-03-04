@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import auditService from '../services/auditService';
-import { FileText, User, Shield, Ban, UserX, UserPlus, Clock } from 'lucide-react';
+import { FileText, User, Shield, Ban, UserX, UserPlus, UserCheck, Clock } from 'lucide-react';
 import TableSkeleton from '../components/TableSkeleton';
 
 const AuditLogs = () => {
@@ -33,6 +33,8 @@ const AuditLogs = () => {
                 return <UserX size={18} className="text-red-700" />;
             case 'PROMOTE_USER':
                 return <Shield size={18} className="text-purple-600" />;
+            case 'REGISTER_USER':
+                return <UserCheck size={18} className="text-blue-500" />;
             default:
                 return <FileText size={18} className="text-gray-600" />;
         }
@@ -48,6 +50,8 @@ const AuditLogs = () => {
                 return 'bg-red-200 text-red-900';
             case 'PROMOTE_USER':
                 return 'bg-purple-100 text-purple-800';
+            case 'REGISTER_USER':
+                return 'bg-blue-100 text-blue-800';
             default:
                 return 'bg-gray-100 text-gray-800';
         }
@@ -92,7 +96,7 @@ const AuditLogs = () => {
                         Clear All Logs
                     </button>
                     <div className="h-6 w-px bg-gray-300 mx-2"></div>
-                    {['ALL', 'BAN_USER', 'UNBAN_USER', 'DELETE_USER', 'PROMOTE_USER'].map((action) => (
+                    {['ALL', 'REGISTER_USER', 'BAN_USER', 'UNBAN_USER', 'DELETE_USER', 'PROMOTE_USER'].map((action) => (
                         <button
                             key={action}
                             onClick={() => setFilter(action)}

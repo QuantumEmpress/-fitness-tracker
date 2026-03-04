@@ -99,8 +99,8 @@ const AdminDashboard = () => {
     }
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-8">Admin Dashboard</h1>
+        <div className="container mx-auto px-3 md:px-4 py-6 md:py-8">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8">Admin Dashboard</h1>
 
             {error && (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
@@ -109,28 +109,28 @@ const AdminDashboard = () => {
             )}
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                <div className="bg-white rounded-xl shadow-md p-6 flex items-center">
-                    <div className="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
-                        <Users size={24} />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
+                <div className="bg-white rounded-xl shadow-md p-4 md:p-6 flex items-center">
+                    <div className="p-3 rounded-full bg-blue-100 text-blue-600 mr-4 flex-shrink-0">
+                        <Users size={22} />
                     </div>
                     <div>
                         <p className="text-gray-500 text-sm">Total Users</p>
                         <p className="text-2xl font-bold text-gray-800">{stats.totalUsers}</p>
                     </div>
                 </div>
-                <div className="bg-white rounded-xl shadow-md p-6 flex items-center">
-                    <div className="p-3 rounded-full bg-green-100 text-green-600 mr-4">
-                        <Activity size={24} />
+                <div className="bg-white rounded-xl shadow-md p-4 md:p-6 flex items-center">
+                    <div className="p-3 rounded-full bg-green-100 text-green-600 mr-4 flex-shrink-0">
+                        <Activity size={22} />
                     </div>
                     <div>
                         <p className="text-gray-500 text-sm">Total Workouts</p>
                         <p className="text-2xl font-bold text-gray-800">{stats.totalWorkouts}</p>
                     </div>
                 </div>
-                <div className="bg-white rounded-xl shadow-md p-6 flex items-center">
-                    <div className="p-3 rounded-full bg-purple-100 text-purple-600 mr-4">
-                        <Dumbbell size={24} />
+                <div className="bg-white rounded-xl shadow-md p-4 md:p-6 flex items-center">
+                    <div className="p-3 rounded-full bg-purple-100 text-purple-600 mr-4 flex-shrink-0">
+                        <Dumbbell size={22} />
                     </div>
                     <div>
                         <p className="text-gray-500 text-sm">Total Exercises</p>
@@ -141,10 +141,11 @@ const AdminDashboard = () => {
 
             {/* Users Table */}
             <div className="bg-white rounded-xl shadow-md overflow-hidden">
-                <div className="px-6 py-4 border-b border-gray-200">
-                    <h2 className="text-xl font-semibold text-gray-800">User Management</h2>
+                <div className="px-4 md:px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                    <h2 className="text-lg md:text-xl font-semibold text-gray-800">User Management</h2>
+                    <span className="text-xs text-gray-400 md:hidden">← Scroll to see all →</span>
                 </div>
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto -webkit-overflow-scrolling-touch">
                     <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
                             <tr>

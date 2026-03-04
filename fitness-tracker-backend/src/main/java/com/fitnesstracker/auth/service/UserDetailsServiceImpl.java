@@ -32,7 +32,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User Not Found with username: " + username);
         }
 
-        System.out.println("DEBUG: Loading user: " + user.getUsername() + ", Enabled: " + user.isEnabled());
+        System.out.println("DEBUG: Loading user: " + user.getUsername() + ", Enabled: " + user.isEnabled()
+                + ", EmailVerified: " + user.isEmailVerified());
+
+        if (!user.isEmailVerified()) {
+            throw new org.springframework.security.authentication.DisabledException(
+                    "Please verify your email before logging in. Check your inbox for a verification link.");
+        }
+
         return UserDetailsImpl.build(user);
     }
 }

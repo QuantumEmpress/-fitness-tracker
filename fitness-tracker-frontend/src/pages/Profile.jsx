@@ -115,14 +115,14 @@ const Profile = () => {
     return (
         <AnimationWrapper className="max-w-4xl mx-auto p-6 space-y-8">
             {/* Decorative Header */}
-            <div className="glass-card p-8 text-center relative overflow-hidden">
+            <div className="glass-card p-6 md:p-8 text-center relative overflow-hidden">
                 <img
                     src="/images/8.png"
                     alt="Profile"
-                    className="w-64 mx-auto mb-4 drop-shadow-2xl animate-float"
+                    className="w-32 sm:w-48 md:w-64 mx-auto mb-4 drop-shadow-2xl animate-float"
                 />
-                <h1 className="text-4xl font-bold text-gray-800 mb-2">My Profile</h1>
-                <p className="text-gray-500 text-lg">Manage your account and track your progress</p>
+                <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2">My Profile</h1>
+                <p className="text-gray-500 text-base md:text-lg">Manage your account and track your progress</p>
             </div>
 
             <StaggerContainer className="space-y-8">

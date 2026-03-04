@@ -5,8 +5,22 @@
 @tailwind utilities;
 
 @layer base {
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+    }
+
     body {
         @apply bg-slate-50 text-slate-800 font-sans;
+        overflow-x: hidden;
+    }
+
+    img, video {
+        max-width: 100%;
+        height: auto;
     }
 }
 

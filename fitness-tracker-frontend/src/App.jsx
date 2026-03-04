@@ -16,6 +16,9 @@ import AdminDashboard from './pages/AdminDashboard';
 import ProgressPhotos from './pages/ProgressPhotos';
 import Calculators from './pages/Calculators';
 import AuditLogs from './pages/AuditLogs';
+import VerifyEmail from './pages/VerifyEmail';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import { Toaster } from 'react-hot-toast';
 import { WebSocketProvider } from './contexts/WebSocketContext';
 
@@ -26,6 +29,9 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />

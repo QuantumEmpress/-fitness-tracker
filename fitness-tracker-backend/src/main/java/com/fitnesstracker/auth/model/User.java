@@ -46,6 +46,8 @@ public class User {
 
     private boolean enabled = true; // Default to true
 
+    private boolean emailVerified = false; // requires email verification after signup
+
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;

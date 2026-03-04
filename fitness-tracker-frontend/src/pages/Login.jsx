@@ -77,9 +77,14 @@ const Login = () => {
                   placeholder="••••••••"
                   required
                 />
+                <div className="text-right">
+                  <Link to="/forgot-password" className="text-sm text-violet-600 font-semibold hover:underline">
+                    Forgot password?
+                  </Link>
+                </div>
               </div>
 
-              
+
 
               <button
                 type="submit"

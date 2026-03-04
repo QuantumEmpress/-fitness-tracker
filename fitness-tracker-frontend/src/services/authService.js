@@ -22,11 +22,26 @@ const getCurrentUser = () => {
     return api.get('/api/user/profile');
 };
 
+const verifyEmail = (token) => {
+    return api.get(`/api/auth/verify-email?token=${token}`);
+};
+
+const forgotPassword = (email) => {
+    return api.post('/api/auth/forgot-password', { email });
+};
+
+const resetPassword = (token, newPassword) => {
+    return api.post('/api/auth/reset-password', { token, newPassword });
+};
+
 const authService = {
     signup,
     login,
     logout,
     getCurrentUser,
+    verifyEmail,
+    forgotPassword,
+    resetPassword,
 };
 
 export default authService;
