@@ -67,7 +67,7 @@ pipeline {
                         usernameVariable: 'DOCKER_USER',
                         passwordVariable: 'DOCKER_TOKEN'
                     )]) {
-                        bat "wsl bash -c \"cd /mnt/c/Users/HP/Documents/final\\ year\\ project/ansible && DOCKER_HUB_TOKEN=%DOCKER_TOKEN% MAIL_USERNAME=%MAIL_CREDS_USR% MAIL_PASSWORD=%MAIL_CREDS_PSW% ansible-playbook -i inventory.ini playbook.yml\""
+                        bat "wsl bash -c \"cd /mnt/c/Users/HP/Documents/final\\ year\\ project/ansible && DOCKER_HUB_TOKEN='%DOCKER_TOKEN%' MAIL_USERNAME='%MAIL_CREDS_USR%' MAIL_PASSWORD='%MAIL_CREDS_PSW%' ansible-playbook -i inventory.ini playbook.yml\""
                     }
                 }
             }
