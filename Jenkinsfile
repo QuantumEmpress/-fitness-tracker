@@ -5,6 +5,7 @@ pipeline {
         DOCKER_HUB_USER = 'quantumempress'
         BACKEND_IMAGE = "${DOCKER_HUB_USER}/fitness-tracker-backend"
         FRONTEND_IMAGE = "${DOCKER_HUB_USER}/fitness-tracker-frontend"
+        MAIL_CREDS = credentials('mail-credentials')
     }
 
     stages {
@@ -61,19 +62,12 @@ pipeline {
         stage('Deploy with Ansible to EC2') {
             steps {
                 script {
-                    withCredentials([
-                        usernamePassword(
-                            credentialsId: 'docker-hub',
-                            usernameVariable: 'DOCKER_USER',
-                            passwordVariable: 'DOCKER_TOKEN'
-                        ),
-                        usernamePassword(
-                            credentialsId: 'mail-credentials',
-                            usernameVariable: 'MAIL_USER',
-                            passwordVariable: 'MAIL_PASS'
-                        )
-                    ]) {
-                        bat "wsl bash -c \"cd /mnt/c/Users/HP/Documents/final\\ year\\ project/ansible && DOCKER_HUB_TOKEN=%DOCKER_TOKEN% MAIL_USERNAME=%MAIL_USER% MAIL_PASSWORD=%MAIL_PASS% ansible-playbook -i inventory.ini playbook.yml\""
+                    withCredentials([usernamePassword(
+                        credentialsId: 'docker-hub',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_TOKEN'
+                    )]) {
+                        bat "wsl bash -c \"cd /mnt/c/Users/HP/Documents/final\\ year\\ project/ansible && DOCKER_HUB_TOKEN=%DOCKER_TOKEN% MAIL_USERNAME=%MAIL_CREDS_USR% MAIL_PASSWORD=%MAIL_CREDS_PSW% ansible-playbook -i inventory.ini playbook.yml\""
                     }
                 }
             }
