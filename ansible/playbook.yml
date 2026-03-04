@@ -6,6 +6,8 @@
   vars:
     docker_hub_user: "quantumempress"
     docker_hub_token: "{{ lookup('env', 'DOCKER_HUB_TOKEN') }}"
+    mail_username: "{{ lookup('env', 'MAIL_USERNAME') }}"
+    mail_password: "{{ lookup('env', 'MAIL_PASSWORD') }}"
     backend_image: "quantumempress/fitness-tracker-backend:v1.0"
     frontend_image: "quantumempress/fitness-tracker-frontend:v1.0"
 
@@ -92,6 +94,8 @@
         docker run -d
         --name fitness-backend
         -p 8080:8080
+        -e MAIL_USERNAME={{ mail_username }}
+        -e MAIL_PASSWORD={{ mail_password }}
         --restart always
         {{ backend_image }}
 
