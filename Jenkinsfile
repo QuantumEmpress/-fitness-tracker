@@ -5,7 +5,7 @@ pipeline {
         DOCKER_HUB_USER = 'quantumempress'
         BACKEND_IMAGE = "${DOCKER_HUB_USER}/fitness-tracker-backend"
         FRONTEND_IMAGE = "${DOCKER_HUB_USER}/fitness-tracker-frontend"
-        MAIL_CREDS = credentials('mail-credentials')
+        MAIL_CREDS = credentials('password')
     }
 
     stages {
