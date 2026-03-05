@@ -34,7 +34,7 @@ public class VerificationToken {
         this.userId = userId;
         this.email = email;
         this.type = type;
-        this.expiresAt = LocalDateTime.now().plusHours(24);
+        this.expiresAt = LocalDateTime.now().plusMinutes(15);
     }
 
     public boolean isExpired() {

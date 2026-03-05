@@ -30,7 +30,7 @@ public class EmailService {
                 "You're almost there! Click the button below to verify your email address and activate your account.",
                 "Verify My Email",
                 link,
-                "This link expires in 24 hours. If you did not create an account, you can safely ignore this email.");
+                "This link expires in 15 minutes. If you did not create an account, you can safely ignore this email.");
         sendHtmlEmail(to, subject, body);
     }
 

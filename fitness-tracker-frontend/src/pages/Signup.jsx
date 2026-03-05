@@ -99,6 +99,39 @@ const Signup = () => {
                                     placeholder="Create a strong password"
                                     required
                                 />
+                                {/* Password Strength Indicator */}
+                                {formData.password.length > 0 && (
+                                    <div className="mt-2 space-y-2">
+                                        {/* Strength bar */}
+                                        <div className="flex gap-1">
+                                            {[1, 2, 3, 4].map(i => {
+                                                const score = [
+                                                    formData.password.length >= 8,
+                                                    /[A-Z]/.test(formData.password),
+                                                    /[0-9]/.test(formData.password),
+                                                    /[^A-Za-z0-9]/.test(formData.password)
+                                                ].filter(Boolean).length;
+                                                const colors = ['bg-red-400', 'bg-orange-400', 'bg-yellow-400', 'bg-green-500'];
+                                                return (
+                                                    <div key={i} className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${i <= score ? colors[score - 1] : 'bg-gray-200'}`} />
+                                                );
+                                            })}
+                                        </div>
+                                        {/* Rules checklist */}
+                                        <div className="grid grid-cols-2 gap-1 text-xs">
+                                            {[
+                                                { rule: formData.password.length >= 8, label: '8+ characters' },
+                                                { rule: /[A-Z]/.test(formData.password), label: 'Uppercase letter' },
+                                                { rule: /[0-9]/.test(formData.password), label: 'Number (0-9)' },
+                                                { rule: /[^A-Za-z0-9]/.test(formData.password), label: 'Special char (!@#...)' },
+                                            ].map(({ rule, label }) => (
+                                                <span key={label} className={`flex items-center gap-1 transition-colors duration-200 ${rule ? 'text-green-600 font-semibold' : 'text-gray-400'}`}>
+                                                    <span>{rule ? '✅' : '○'}</span>{label}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             <div className="flex items-center text-sm text-gray-500 mt-2">
