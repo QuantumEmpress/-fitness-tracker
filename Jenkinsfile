@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'dat' }
+    agent { label 'pat' }
 
     environment {
         DOCKER_HUB_USER = 'quantumempress'
