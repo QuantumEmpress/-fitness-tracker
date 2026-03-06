@@ -10,11 +10,11 @@ const Layout = ({ children }) => {
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
     return (
-        <div className="min-h-screen mesh-light flex">
+        <div className="h-screen overflow-hidden mesh-light flex">
             {user && <Sidebar isOpen={sidebarOpen} user={user} />}
-            <div className="flex-1 flex flex-col min-w-0">
+            <div className="flex-1 flex flex-col min-w-0 h-full">
                 <Navbar toggleSidebar={toggleSidebar} />
-                <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto">
+                <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto custom-scrollbar">
                     {children}
                 </main>
             </div>
