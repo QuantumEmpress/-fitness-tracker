@@ -40,8 +40,8 @@ const Dashboard = () => {
             {/* Welcome Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-4xl font-bold text-gray-800 mb-2">Welcome Back! 👋</h1>
-                    <p className="text-gray-500 text-lg">Here's your fitness journey overview</p>
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-2">Welcome Back! 👋</h1>
+                    <p className="text-gray-500 text-sm md:text-lg">Here's your fitness journey overview</p>
                 </div>
             </div>
 

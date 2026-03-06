@@ -37,7 +37,9 @@ Users can track workouts, set fitness goals, monitor progress with analytics cha
 | Feature | Description |
 |---|---|
 | 🔐 **JWT Authentication** | Secure signup/login with role-based access (User & Admin) |
+| 📧 **Email Verification** | SMTP-based email confirmation and secure password reset flows |
 | 🏠 **Interactive Dashboard** | Real-time stats, weekly progress bar charts, calorie tracking |
+| ⚡ **Real-Time Updates** | WebSockets for live dashboard metrics and instant goal notifications |
 | 💪 **Exercise Library** | Browse, search, and filter exercises by muscle group & equipment |
 | 📝 **Workout Logging** | Log workouts with sets, reps, weight, and auto-calculated calories |
 | 🎯 **Goal Tracking** | Set and track fitness goals with progress indicators |
@@ -47,7 +49,6 @@ Users can track workouts, set fitness goals, monitor progress with analytics cha
 | 🧮 **Fitness Calculators** | BMI, calorie, and other health calculators |
 | 👨‍💼 **Admin Panel** | User management dashboard with audit logging |
 | 📊 **Audit Logs** | Track all system actions for accountability |
-| 👤 **User Profiles** | Customizable profiles with avatar support |
 
 ---
 
@@ -61,6 +62,7 @@ Users can track workouts, set fitness goals, monitor progress with analytics cha
 | **Framer Motion** | Smooth page transitions & micro-animations |
 | **Recharts** | Interactive data visualization (bar charts, trends) |
 | **Lucide React** | Beautiful, consistent iconography |
+| **StompJS & SockJS** | WebSocket client for real-time interactions |
 | **Axios** | API communication with interceptors |
 | **React Hot Toast** | Elegant notification system |
 | **React Router v7** | Client-side routing with protected routes |

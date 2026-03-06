@@ -5,7 +5,10 @@
 @tailwind utilities;
 
 @layer base {
-    *, *::before, *::after {
+
+    *,
+    *::before,
+    *::after {
         box-sizing: border-box;
     }
 
@@ -18,7 +21,8 @@
         overflow-x: hidden;
     }
 
-    img, video {
+    img,
+    video {
         max-width: 100%;
         height: auto;
     }
@@ -56,5 +60,32 @@
             radial-gradient(at 0% 100%, hsla(268, 100%, 92%, 1) 0px, transparent 50%),
             radial-gradient(at 80% 100%, hsla(189, 100%, 92%, 1) 0px, transparent 50%),
             radial-gradient(at 0% 0%, hsla(341, 100%, 92%, 1) 0px, transparent 50%);
+    }
+
+    /* Custom thin scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        @apply bg-violet-200 rounded-full;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        @apply bg-violet-300;
+    }
+
+    /* Invisible scrollbar */
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
 }

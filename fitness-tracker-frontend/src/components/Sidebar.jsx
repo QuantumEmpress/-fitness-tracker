@@ -23,8 +23,8 @@ const Sidebar = ({ isOpen, user }) => {
 
     return (
         <aside className={`fixed md:sticky top-0 inset-y-0 left-0 z-40 w-72 h-screen transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 border-r border-white/40 bg-white/70 backdrop-blur-xl shadow-2xl`}>
-            <div className="p-8 h-full flex flex-col">
-                <div className="mb-10 flex items-center gap-3">
+            <div className="p-5 h-full flex flex-col">
+                <div className="mb-6 flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-white shadow-lg shadow-violet-200">
                         <Activity size={22} className="animate-pulse" />
                     </div>
