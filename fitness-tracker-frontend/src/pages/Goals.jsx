@@ -36,8 +36,14 @@ const Goals = () => {
         }
     };
 
+    const today = new Date().toISOString().split('T')[0];
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (formData.targetDate < today) {
+            toast.error('Target date cannot be in the past!');
+            return;
+        }
         const loadingToast = toast.loading('Setting new goal...');
         try {
             await goalService.createGoal(formData);
@@ -123,6 +129,7 @@ const Goals = () => {
                             <input
                                 type="date"
                                 value={formData.targetDate}
+                                min={today}
                                 onChange={(e) => setFormData({ ...formData, targetDate: e.target.value })}
                                 className="w-full px-5 py-3 rounded-xl bg-white border border-gray-100 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-100 transition-all outline-none text-gray-700 font-medium shadow-sm"
                                 required
