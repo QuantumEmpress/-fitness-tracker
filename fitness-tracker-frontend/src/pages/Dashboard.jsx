@@ -1,15 +1,60 @@
 import React, { useEffect, useState } from 'react';
 import dashboardService from '../services/dashboardService';
 import { useWebSocket } from '../contexts/WebSocketContext';
-import { Activity, TrendingUp, Calendar } from 'lucide-react';
+import { AuthContext } from '../contexts/AuthContext';
+import { Activity, TrendingUp, Calendar, Trophy, Flame } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import DashboardSkeleton from '../components/DashboardSkeleton';
+import toast from 'react-hot-toast';
 
 const Dashboard = () => {
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const { lastDashboardEvent } = useWebSocket();
+    const { user } = React.useContext(AuthContext);
+
+    const checkStreakMilestone = () => {
+        if (!user || !user.currentStreak) return;
+
+        // Prevent showing the toast multiple times per session
+        const streakKey = `streak_notified_${user.currentStreak}`;
+        if (sessionStorage.getItem(streakKey)) return;
+
+        const milestones = [3, 7, 14, 30, 50, 100, 365];
+        if (milestones.includes(user.currentStreak)) {
+            toast.custom((t) => (
+                <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} max-w-md w-full bg-white shadow-2xl rounded-2xl pointer-events-auto flex ring-1 ring-black ring-opacity-5 overflow-hidden border-2 border-orange-200`}>
+                    <div className="flex-1 w-0 p-4 bg-gradient-to-r from-orange-50 to-rose-50">
+                        <div className="flex items-start">
+                            <div className="flex-shrink-0 pt-0.5">
+                                <div className="h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center border border-orange-200 shadow-sm">
+                                    <Flame className="h-6 w-6 text-orange-500 fill-orange-500 animate-pulse" />
+                                </div>
+                            </div>
+                            <div className="ml-3 flex-1">
+                                <p className="text-sm font-bold text-gray-900">
+                                    Incredible! {user.currentStreak} Day Streak 🔥
+                                </p>
+                                <p className="mt-1 text-sm text-gray-500 font-medium">
+                                    You are crushing your fitness goals. Keep up the amazing consistency! 🏆
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex border-l border-gray-200 bg-white">
+                        <button
+                            onClick={() => toast.dismiss(t.id)}
+                            className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-bold text-orange-600 hover:text-orange-500 hover:bg-orange-50 focus:outline-none transition-colors"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            ), { duration: 6000 });
+            sessionStorage.setItem(streakKey, 'true');
+        }
+    };
 
     const fetchStats = async () => {
         try {
@@ -24,7 +69,8 @@ const Dashboard = () => {
 
     useEffect(() => {
         fetchStats();
-    }, []);
+        checkStreakMilestone();
+    }, [user?.currentStreak]);
 
     // Auto-refresh when a WebSocket dashboard event is received
     useEffect(() => {

@@ -25,4 +25,6 @@ public class UserProfileDto {
 
     private Double tdee; // Total Daily Energy Expenditure
     private boolean enabled;
+    private Integer currentStreak;
+    private java.time.LocalDate lastLoginDate;
 }

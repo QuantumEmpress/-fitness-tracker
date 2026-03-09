@@ -28,6 +28,24 @@ public class UserService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
+        // Daily Streak Logic
+        java.time.LocalDate today = java.time.LocalDate.now();
+        if (user.getLastLoginDate() == null) {
+            user.setLastLoginDate(today);
+            user.setCurrentStreak(1);
+            userRepository.save(user);
+        } else if (!user.getLastLoginDate().equals(today)) {
+            // It's a different day, check if it's strictly the next day
+            if (user.getLastLoginDate().plusDays(1).equals(today)) {
+                user.setCurrentStreak((user.getCurrentStreak() == null ? 0 : user.getCurrentStreak()) + 1);
+            } else if (user.getLastLoginDate().isBefore(today)) {
+                // User missed a day or more, reset streak
+                user.setCurrentStreak(1);
+            }
+            user.setLastLoginDate(today);
+            userRepository.save(user);
+        }
+
         return mapToDto(user);
     }
 
@@ -73,7 +91,9 @@ public class UserService {
                 bmi,
                 bmr,
                 tdee,
-                user.isEnabled());
+                user.isEnabled(),
+                user.getCurrentStreak() == null ? 0 : user.getCurrentStreak(),
+                user.getLastLoginDate());
     }
 
     public void banUser(String id, String adminId, String adminUsername) {

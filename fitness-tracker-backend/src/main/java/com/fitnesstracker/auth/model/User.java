@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -47,6 +48,9 @@ public class User {
     private boolean enabled = true; // Default to true
 
     private boolean emailVerified = false; // requires email verification after signup
+
+    private Integer currentStreak = 0;
+    private LocalDate lastLoginDate;
 
     public User(String username, String email, String password) {
         this.username = username;

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
-import { LogOut, User, Menu } from 'lucide-react';
+import { LogOut, User, Menu, Flame } from 'lucide-react';
 
 const Navbar = ({ toggleSidebar }) => {
     const { user, logout } = useContext(AuthContext);
@@ -29,6 +29,12 @@ const Navbar = ({ toggleSidebar }) => {
             <div className="flex items-center gap-4">
                 {user ? (
                     <>
+                        {user.currentStreak > 0 && (
+                            <div className="hidden md:flex items-center gap-1 px-3 py-1.5 rounded-xl bg-orange-50 text-orange-500 font-bold border border-orange-200" title="Daily Login Streak">
+                                <Flame size={18} className="fill-orange-500 text-orange-500" />
+                                <span>{user.currentStreak}</span>
+                            </div>
+                        )}
                         <span className="hidden md:block text-gray-700 font-medium">Welcome, <span className="font-bold text-violet-600">{user.username}</span></span>
                         <Link to="/profile" className="p-2 hover:bg-white rounded-xl transition-all text-gray-600 hover:text-violet-600">
                             <User size={22} />
