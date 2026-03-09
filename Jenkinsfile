@@ -49,7 +49,7 @@ pipeline {
                         usernameVariable: 'USERNAME',
                         passwordVariable: 'PASSWORD'
                     )]) {
-                        bat "docker login -u %USERNAME% -p %PASSWORD%"
+                        bat "echo %PASSWORD% | docker login -u %USERNAME% --password-stdin"
                         bat "docker build --no-cache -t ${BACKEND_IMAGE}:v1.0 -f fitness-tracker-backend/Dockerfile fitness-tracker-backend"
                         bat "docker push ${BACKEND_IMAGE}:v1.0"
                         bat "docker build --no-cache -t ${FRONTEND_IMAGE}:v1.0 -f fitness-tracker-frontend/Dockerfile fitness-tracker-frontend"
